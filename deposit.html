@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wallet - Depositar</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    #successAlert {
+      display: none;
+    }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="bg-dark">
+  <div class="container text-white pt-5">
+    <h2>Enviar Dinero</h2>
+    <!-- Alerta de éxito -->
+    <div class="alert alert-success alert-dismissible position-fixed" style="top: 20px; right: 20px; z-index: 9999;" id="successAlert" role="alert">
+      <strong>¡Transferencia exitosa!</strong>
+      <button type="button" class="close" id="closeAlert">
+        <span>&times;</span>
+      </button>
+    </div>
+    <form id="depositForm">
+      <div class="form-group">
+        <label for="depositAmount">Monto a depositar:</label>
+        <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" min="1" required>
+      </div>
+        <div class="form-group">
+        <h4 id="currentBalance" style="display: none;" >$0</h4>
+      </div>
+      <button type="submit" class="btn btn-primary">Realizar depósito</button>
+    </form>
+    <a href="../menu.html" class="btn btn-secondary mt-2">Volver al Menú Principal</a>
+  </div>
+
+  <script>
+    const depositForm = document.getElementById('depositForm');
+    const depositAmount = document.getElementById('depositAmount');
+    const successAlert = document.getElementById('successAlert');
+    const closeAlert = document.getElementById('closeAlert');
+    const currentBalance = document.getElementById('currentBalance');
+    
+    // Inicializar saldo si no existe
+    if (!localStorage.getItem('balance')) {
+      localStorage.setItem('balance', '30000');
+    }
+    
+    // Mostrar saldo actual
+    function updateBalanceDisplay() {
+      const balance = parseFloat(localStorage.getItem('balance')) || 0;
+      currentBalance.textContent = '$' + balance.toLocaleString('es-CL');
+    }
+    
+    updateBalanceDisplay();
+    // Manejar envío del formulario
+    depositForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = parseFloat(depositAmount.value);
+      if (amount && amount > 0) {
+        // Obtener saldo actual
+        const currentBalanceValue = parseFloat(localStorage.getItem('balance')) || 0;
+        // Sumar depósito
+        const newBalance = currentBalanceValue + amount;
+        // Guardar nuevo saldo
+        localStorage.setItem('balance', newBalance.toString());
+        // Actualizar visualización
+        updateBalanceDisplay();
+        // Mostrar alerta
+        successAlert.style.display = 'block';
+        successAlert.classList.add('fade', 'show');
+        // Limpiar formulario
+        depositAmount.value = '';
+        // Ocultar alerta después de 3 segundos
+        setTimeout(function() {
+          successAlert.classList.remove('show');
+          setTimeout(function() {
+            successAlert.style.display = 'none';
+            successAlert.classList.remove('fade');
+          }, 150);
+        }, 3000);
+      }
+    });
+    
+    // Manejar cierre manual de la alerta
+    closeAlert.addEventListener('click', function() {
+      successAlert.classList.remove('show');
+      setTimeout(function() {
+        successAlert.style.display = 'none';
+        successAlert.classList.remove('fade');
+      }, 150);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wallet - Menú Principal</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    #alert-mensaje {
+            display: none;
+        }
+  </style>
+</head>
+<body class="bg-dark">
+    <div class="alert alert-mensaje alert-dismissible position-fixed" style="top: 20px; right: 20px; z-index: 9999;" id="alert-mensaje" role="alert">
+        <strong id="mensaje-texto"></strong>
+      <button type="button" class="close" onclick="document.getElementById('alert-mensaje').style.display='none'">
+        <span>&times;</span>
+      </button>
+    </div>
+  <div class="container text-white pt-5">
+    <h2>Menú Principal</h2>
+    <div class="form-group">
+        <label for="Saldo">Saldo Actual:</label>
+    <h3 id="balance">$30000</h3>
+    </div>
+    <a id="depositar" onClick="retorno_click(this.id)" href="deposit.html" class="btn btn-primary">Depositar</a>
+    <a id="enviar_Dinero" onClick="retorno_click(this.id)" href="sendmoney.html" class="btn btn-primary">Enviar Dinero</a>
+    <a id="ultimos_Movimientos" onClick="retorno_click(this.id)" href="transactions.html" class="btn btn-primary">Últimos Movimientos</a>
+  </div>
+  <p id="mensaje" class="text-dark alert-success alert-dismissible" ></p>
+</body>
+    <script>
+        // Uso de localstorage
+        if (!localStorage.getItem('balance')) {
+        localStorage.setItem('balance', '30000');
+        }
+        function updateBalance() {
+            const balance = parseFloat(localStorage.getItem('balance')) || 0;
+            document.getElementById('balance').textContent = '$' + balance.toLocaleString('es-CL');
+        }
+        updateBalance();
+        let varmensaje = document.getElementById("mensaje");
+        function retorno_click(clicked) {
+            event.preventDefault();
+            varhref = document.getElementById(clicked).href; 
+            varmensaje.innerHTML = "Estas siendo transferido a " + clicked;
+            setTimeout(function() {
+                    window.location.href = varhref;
+                }, 1000);
+            varhref
+        } 
+               
+    </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

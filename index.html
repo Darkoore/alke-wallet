@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #successAlert, #errorAlert {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+    <!-- Alerta de éxito -->
+    <div class="alert alert-success alert-dismissible position-fixed" style="top: 20px; right: 20px; z-index: 9999;" id="successAlert" role="alert">
+      <strong>¡Login exitoso!</strong>
+      <button type="button" class="close" onclick="document.getElementById('successAlert').style.display='none'">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <!-- Alert de error -->
+    <div class="alert alert-danger alert-dismissible position-fixed" style="top: 20px; right: 20px; z-index: 9999;" id="errorAlert" role="alert">
+      <strong>Correo o contraseña incorrectos</strong>
+      <button type="button" class="close" onclick="document.getElementById('errorAlert').style.display='none'">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <form id="loginForm">
+        <div class="container pt-5 text-white">
+            <div class="row">
+                <h1 class="col-12">Login</h1>
+                <h2>Inicio de sesion</h2>
+                <div class="form-group col-12">
+                    <label for="exampleInputEmail1">Correo</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingresa tu Email" required>
+                </div>
+                <div class="form-group col-12">
+                    <label for="exampleInputPassword1">Ingrese su contraseña</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary col-8 px-2 py-2 mx-auto">Iniciar Sesion</button>
+            </div>
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script>
+        // Credenciales correctas
+        const VALID_EMAIL = 'usuario@correo.com';
+        const VALID_PASSWORD = 'usuario';
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('exampleInputEmail1').value;
+            const password = document.getElementById('exampleInputPassword1').value;
+            
+            // Validar credenciales
+            if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+                // Mostrar alerta de éxito
+                const successAlert = document.getElementById('successAlert');
+                successAlert.style.display = 'block';
+                successAlert.classList.add('fade', 'show');
+                
+                // Redirigir después de 1 segundo
+                setTimeout(function() {
+                    window.location.href = '../menu.html';
+                }, 1000);
+            } else {
+                // Mostrar alerta de error
+                const errorAlert = document.getElementById('errorAlert');
+                errorAlert.style.display = 'block';
+                errorAlert.classList.add('fade', 'show');
+                
+                // Ocultar después de 3 segundos
+                setTimeout(function() {
+                    errorAlert.classList.remove('show');
+                    setTimeout(function() {
+                        errorAlert.style.display = 'none';
+                        errorAlert.classList.remove('fade');
+                    }, 150);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
