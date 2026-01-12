@@ -6,44 +6,54 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-dark">
-  <div class="container text-white pt-5">
-    <h2>Enviar Dinero</h2>
-    <form>
-      <!-- Barra Busqueda -->
-      <div class="form-group">
-        <label for="searchContact">Buscar en la agenda de transferencias:</label>
-        <input type="text" class="form-control" id="searchContact" placeholder="Buscar contacto">
-      </div>
-      <button type="button" class="btn btn-primary" id="btnAddContact">Agregar nuevo contacto</button>
-      <h3 class="mt-4">Contactos</h3>
-      <!-- Lista de Contactos -->
-      <ul id="contactList" class="list-group text-dark">
-        <li class="list-group-item contact-item" data-name="John Doe" data-cbu="123456789" data-alias="john.doe" data-banco="ABC Bank">
-          <div class="contact-info">
-            <span class="contact-name">John Doe</span>
-            <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+  <div class="container pt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card bg-secondary text-white">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Enviar Dinero</h2>
+
+            <form>
+              <div class="form-group">
+                <label for="searchContact">Buscar en la agenda de transferencias:</label>
+                <input type="text" class="form-control" id="searchContact" placeholder="Buscar contacto">
+              </div>
+
+              <button type="button" class="btn btn-primary mb-3" id="btnAddContact">Agregar nuevo contacto</button>
+
+              <h3 class="mt-4">Contactos</h3>
+
+              <ul id="contactList" class="list-group text-dark mb-4">
+                <li class="list-group-item contact-item" data-name="John Doe" data-cbu="123456789" data-alias="john.doe" data-banco="ABC Bank">
+                  <div class="contact-info">
+                    <span class="contact-name">John Doe</span>
+                    <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+                  </div>
+                </li>
+                <li class="list-group-item contact-item" data-name="Jane Smith" data-cbu="987654321" data-alias="jane.smith" data-banco="XYZ Bank">
+                  <div class="contact-info">
+                    <span class="contact-name">Jane Smith</span>
+                    <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
+                  </div>
+                </li>
+              </ul>
+
+              <form id="depositForm">
+                <div class="form-group">
+                  <h2>Saldo disponible</h2>
+                  <h3 id="balance">$0</h3>
+                  <label for="depositAmount">Monto a depositar:</label>
+                  <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" min="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary col-12">Realizar depósito</button>
+              </form>
+            </form>
+
+            <a href="menu.html" class="btn btn-secondary mt-3 col-12">Volver al Menú Principal</a>
           </div>
-        </li>
-        <li class="list-group-item contact-item" data-name="Jane Smith" data-cbu="987654321" data-alias="jane.smith" data-banco="XYZ Bank">
-          <div class="contact-info">
-            <span class="contact-name">Jane Smith</span>
-            <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
-          </div>
-        </li>
-      </ul>
-      <!--Form de deposito-->
-      <form id="depositForm">
-        <div class="form-group">
-          <h2>Saldo disponible</h2>
-          <h3 id="balance">$0</h3>
-          <label for="depositAmount">Monto a depositar:</label>
-          <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" min="1" required>
         </div>
-        <button type="submit" class="btn btn-primary">Realizar depósito</button>
-      </form>  
-      <button type="submit" class="btn btn-primary mt-3">Enviar dinero</button>
-    </form>
-    <a href="menu.html" class="btn btn-secondary mt-2">Volver al Menú Principal</a>
+      </div>
+    </div>
   </div>
   <!-- Estructura de div para modal -->
   <div class="modal fade" id="contactModal" tabindex="-1">
