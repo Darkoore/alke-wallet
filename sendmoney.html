@@ -4,6 +4,14 @@
   <title>Wallet - Enviar Dinero</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
+    <style>
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
 </head>
 <body class="bg-dark">
   <div class="container pt-5">
@@ -17,7 +25,7 @@
                 <label for="searchContact">Buscar en la agenda de transferencias:</label>
                 <input type="text" class="form-control" id="searchContact" placeholder="Buscar contacto">
               </div>
-              <button type="button" class="btn btn-primary mb-3" id="btnAddContact">Agregar nuevo contacto</button>
+              <button type="button" class="btn btn-primary mb-3 col-12" id="btnAddContact">Agregar nuevo contacto</button>
               <h3 class="mt-4">Contactos</h3>
               <ul id="contactList" class="list-group text-dark mb-4">
                 <li class="list-group-item contact-item" data-name="John Doe" data-cbu="123456789" data-alias="john.doe" data-banco="ABC Bank">
@@ -38,12 +46,12 @@
                   <h2>Saldo disponible</h2>
                   <h3 id="balance">$0</h3>
                   <label for="depositAmount">Monto a depositar:</label>
-                  <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" min="1" required>
+                  <input type="text" class="form-control" id="depositAmount" placeholder="Ingrese el monto" required>
                 </div>
                 <button type="button" class="btn btn-primary col-12" id="btnSendMoney">Realizar depósito</button>
               </form>
             </form>
-            <a href="menu.html" class="btn btn-secondary mt-3 col-12">Volver al Menú Principal</a>
+            <a href="menu.html" class="btn btn-danger mt-3 col-12">Volver al Menú Principal</a>
           </div>
         </div>
       </div>

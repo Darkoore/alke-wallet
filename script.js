@@ -72,7 +72,7 @@ function loadContacts() {
             <span class="contact-name">${contact.name}</span>
             <span class="contact-details">CBU: ${contact.cbu}, Alias: ${contact.alias}, Banco: ${contact.banco}</span>
         </div>
-        <button class="btn-delete-contact" data-index="${index}" title="Eliminar contacto">×</button>
+        <button class="btn-delete-contact" data-index="${index}" title="Eliminar contacto">X</button>
         </li>
     `;
     $('#contactList').append(contactItem);
@@ -147,7 +147,7 @@ $('#btnSaveContact').click(function() {
     alert('Por favor, completa todos los campos');
     }
 });
-// Funcionalidad de búsqueda
+// Funcionalidad de búsqueda - Pendiente añadir autocompletado
 $('#searchContact').on('keyup', function() {
     const searchText = $(this).val().toLowerCase();
     $('.contact-item').each(function() {
@@ -160,6 +160,15 @@ $('#searchContact').on('keyup', function() {
     }
     });
 });
+// Formato de dinero al input de sendmoney
+const depositInput = document.getElementById('depositAmount');
+depositInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+      if (value) {
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+    e.target.value = value;
+});
 // Añadir seleccion
 $(document).on('click', '.contact-item', function() {
     $('.contact-item').removeClass('active');
@@ -169,8 +178,8 @@ $(document).on('click', '.contact-item', function() {
 });
 // Manejar envío del formulario de depósito
 $('#btnSendMoney').click(function() {
-    const amount = parseFloat($('#depositAmount').val());
-    
+    const amountText = $('#depositAmount').val().replace(/\./g, ''); // Eliminar puntos
+    const amount = parseFloat(amountText);
     if (!amount || isNaN(amount)) {
     alert('Por favor, ingresa un monto válido');
     return;
@@ -180,4 +189,44 @@ $('#btnSendMoney').click(function() {
     $('#depositAmount').val('');
     $('.contact-item').removeClass('active');
     }
+});
+
+// ---------------------------------------------------------------------Scripts de Deposit.HTML----------------------------------------------------------------------------
+const depositForm = document.getElementById('depositForm');
+const depositAmount = document.getElementById('depositAmount');
+const successAlert = document.getElementById('successAlert');
+const closeAlert = document.getElementById('closeAlert');    
+    // Manejar envío del formulario
+depositForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (amount && amount > 0) {
+    // Obtener saldo actual
+    const currentBalanceValue = parseFloat(localStorage.getItem('balance')) || 0;
+    // Sumar depósito
+    const newBalance = currentBalanceValue + amount;
+    // Guardar nuevo saldo
+    localStorage.setItem('balance', newBalance.toString());
+    // Mostrar alerta
+    successAlert.style.display = 'block';
+    successAlert.classList.add('fade', 'show');
+    // Limpiar formulario
+    depositAmount.value = '';
+    // Ocultar alerta después de 3 segundos
+    setTimeout(function() {
+        successAlert.classList.remove('show');
+        setTimeout(function() {
+        successAlert.style.display = 'none';
+        successAlert.classList.remove('fade');
+        }, 150);
+    }, 3000);
+    }
+});
+
+// Manejar cierre manual de la alerta
+closeAlert.addEventListener('click', function() {
+    successAlert.classList.remove('show');
+    setTimeout(function() {
+    successAlert.style.display = 'none';
+    successAlert.classList.remove('fade');
+    }, 150);
 });
