@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Transacciones</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Historial de Transacciones</h1>
+    <div id="transactionsList" class="list-group">
+      <!-- Las transacciones se cargarán aquí -->
+    </div>
+    <div id="noTransactions" class="alert alert-info mt-3" style="display: none;">
+      No hay transacciones registradas.
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Función para cargar y mostrar transacciones
+    function loadTransactions() {
+      const storedTransactions = localStorage.getItem('transactions');
+      const transactions = storedTransactions ? JSON.parse(storedTransactions) : [];
+      $('#transactionsList').empty();
+      if (transactions.length === 0) {
+        $('#noTransactions').show();
+        return;
+      }
+      $('#noTransactions').hide();
+      // Ordenar transacciones por fecha (más reciente primero)
+      transactions.sort((a, b) => b.id - a.id);
+      
+      transactions.forEach((transaction) => {
+        const transactionItem = `
+          <div class="transaction-item">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div class="transaction-type">${transaction.tipo}</div>
+                <div class="transaction-details">
+                  <strong>Destinatario:</strong> ${transaction.destinatario}<br>
+                  <strong>CBU:</strong> ${transaction.cbu}<br>
+                  <strong>Alias:</strong> ${transaction.alias}<br>
+                  <strong>Banco:</strong> ${transaction.banco}
+                </div>
+                <div class="transaction-date">${transaction.fechaFormateada}</div>
+              </div>
+              <div class="transaction-amount text-danger">
+                -$${transaction.monto.toLocaleString('es-CL')}
+              </div>
+            </div>
+          </div>
+        `;
+        $('#transactionsList').append(transactionItem);
+      });
+    }
+    // Cargar transacciones al iniciar la página
+    $(document).ready(function() {
+      loadTransactions();
+    });
+  </script>
+</body>
+</html>

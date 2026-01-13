@@ -19,7 +19,25 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .btn-delete-contact:hover {
   background-color: #c82333;
+}
+.transaction-item {
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px 0;
+}
+.transaction-item:last-child {
+    border-bottom: none;
+}
+.transaction-amount {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.transaction-date {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+.transaction-details {
+    margin-top: 5px;
+    font-size: 0.95em;
 }
