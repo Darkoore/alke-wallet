@@ -3,154 +3,104 @@
 <head>
   <title>Wallet - Enviar Dinero</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+    <style>
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
 </head>
 <body class="bg-dark">
-  <div class="container text-white pt-5">
-    <h2>Enviar Dinero</h2>
-    <form>
-      <!-- Barra Busqueda -->
-      <div class="form-group">
-        <label for="searchContact">Buscar en la agenda de transferencias:</label>
-        <input type="text" class="form-control" id="searchContact" placeholder="Buscar contacto">
-      </div>
-      <button type="button" class="btn btn-primary" id="btnAddContact">Agregar nuevo contacto</button>
-      <h3 class="mt-4">Contactos</h3>
-      <!-- Lista de Contactos -->
-      <ul id="contactList" class="list-group text-dark">
-        <li class="list-group-item contact-item" data-name="John Doe" data-cbu="123456789" data-alias="john.doe" data-banco="ABC Bank">
-          <div class="contact-info">
-            <span class="contact-name">John Doe</span>
-            <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+  <div class="container pt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card bg-secondary text-white">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Enviar Dinero</h2>
+            <form>
+              <div class="form-group">
+                <label for="searchContact">Buscar en la agenda de transferencias:</label>
+                <input type="text" class="form-control" id="searchContact" placeholder="Buscar contacto">
+              </div>
+              <button type="button" class="btn btn-primary mb-3 col-12" id="btnAddContact">Agregar nuevo contacto</button>
+              <h3 class="mt-4">Contactos</h3>
+              <ul id="contactList" class="list-group text-dark mb-4">
+                <li class="list-group-item contact-item" data-name="John Doe" data-cbu="123456789" data-alias="john.doe" data-banco="ABC Bank">
+                  <div class="contact-info">
+                    <span class="contact-name">John Doe</span>
+                    <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+                  </div>
+                </li>
+                <li class="list-group-item contact-item" data-name="Jane Smith" data-cbu="987654321" data-alias="jane.smith" data-banco="XYZ Bank">
+                  <div class="contact-info">
+                    <span class="contact-name">Jane Smith</span>
+                    <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
+                  </div>
+                </li>
+              </ul>
+              <form id="depositForm">
+                <div class="form-group">
+                  <h2>Saldo disponible</h2>
+                  <h3 id="balance">$0</h3>
+                  <label for="depositAmount">Monto a depositar:</label>
+                  <input type="text" class="form-control" id="depositAmount" placeholder="Ingrese el monto" required>
+                </div>
+                <button type="button" class="btn btn-primary col-12" id="btnSendMoney">Realizar depósito</button>
+              </form>
+            </form>
+            <a href="menu.html" class="btn btn-danger mt-3 col-12">Volver al Menú Principal</a>
           </div>
-        </li>
-        <li class="list-group-item contact-item" data-name="Jane Smith" data-cbu="987654321" data-alias="jane.smith" data-banco="XYZ Bank">
-          <div class="contact-info">
-            <span class="contact-name">Jane Smith</span>
-            <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
-          </div>
-        </li>
-      </ul>
-      <!--Form de deposito-->
-      <form id="depositForm">
-        <div class="form-group">
-          <label for="depositAmount">Monto a depositar:</label>
-          <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" min="1" required>
-        </div>
-          <div class="form-group">
-          <h3 id="balance">$0</h3>
-        </div>
-        <button type="submit" class="btn btn-primary">Realizar depósito</button>
-      </form>  
-      <button type="submit" class="btn btn-primary mt-3">Enviar dinero</button>
-    </form>
-    <a href="menu.html" class="btn btn-secondary mt-2">Volver al Menú Principal</a>
-  </div>
-  <div class="modal fade" id="contactModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-dark" id="modalTitle">Agregar Nuevo Contacto</h5>
-          <button type="button" class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        </div>
-        <div class="modal-body text-dark">
-          <form id="contactForm">
-            <div class="form-group">
-              <label for="contactName">Nombre:</label>
-              <input type="text" class="form-control" id="contactName" required>
-            </div>
-            <div class="form-group">
-              <label for="contactCBU">CBU:</label>
-              <input type="text" class="form-control" id="contactCBU" required>
-            </div>
-            <div class="form-group">
-              <label for="contactAlias">Alias:</label>
-              <input type="text" class="form-control" id="contactAlias" required>
-            </div>
-            <div class="form-group">
-              <label for="contactBanco">Banco:</label>
-              <input type="text" class="form-control" id="contactBanco" required>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="btnSaveContact">Insertar usuario</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
-
+  <!-- Estructura de div para modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Contacto</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="contactName">Nombre</label>
+            <input type="text" class="form-control" id="contactName" required>
+          </div>
+          <div class="form-group">
+            <label for="contactCBU">CBU</label>
+            <input type="text" class="form-control" id="contactCBU" maxlength="22" required>
+          </div>
+          <div class="form-group">
+            <label for="contactAlias">Alias</label>
+            <input type="text" class="form-control" id="contactAlias" required>
+          </div>
+          <div class="form-group">
+            <label for="contactBanco">Banco</label>
+            <select class="form-control" id="contactBanco" required>
+              <option value="">Seleccione un banco</option>
+              <option value="Banco Estado">Banco Estado</option>
+              <option value="Banco de Chile">Banco de Chile</option>
+              <option value="Banco Itaú">Banco Itaú</option>
+              <option value="Banco BCI">Banco BCI</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnSaveContact">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <script>
-    // Uso de localstorage
-    if (!localStorage.getItem('balance')) {
-    localStorage.setItem('balance', '30000');
-    }
-    function updateBalance() {
-        const balance = parseFloat(localStorage.getItem('balance')) || 0;
-        document.getElementById('balance').textContent = '$' + balance.toLocaleString('es-CL');
-    }
-    //Funcion transferencia
-    if (localStorage.getItem('balance')>=0) {
-
-    }
-
-    updateBalance();
-    // Abrir modal para agregar contacto
-    $('#btnAddContact').click(function() {
-      $('#contactForm')[0].reset();
-      $('#contactModal').modal('show');
-    });
-    // Guardar nuevo contacto
-    $('#btnSaveContact').click(function() {
-      const name = $('#contactName').val().trim();
-      const cbu = $('#contactCBU').val().trim();
-      const alias = $('#contactAlias').val().trim();
-      const banco = $('#contactBanco').val().trim();
-      if (name && cbu && alias && banco) {
-        // Crear nuevo elemento de lista
-        const newContact = `
-          <li class="list-group-item contact-item" data-name="${name}" data-cbu="${cbu}" data-alias="${alias}" data-banco="${banco}">
-            <div class="contact-info">
-              <span class="contact-name">${name}</span>
-              <span class="contact-details">CBU: ${cbu}, Alias: ${alias}, Banco: ${banco}</span>
-            </div>
-          </li>
-        `;
-        // Agregar a la lista
-        $('#contactList').append(newContact);
-        // Cerrar modal y limpiar formulario
-        $('#contactModal').modal('hide');
-        $('#contactForm')[0].reset();
-      } else {
-        alert('Por favor, completa todos los campos');
-      }
-    });
-    // Funcionalidad de búsqueda
-    $('#searchContact').on('keyup', function() {
-      const searchText = $(this).val().toLowerCase();
-      $('.contact-item').each(function() {
-        const contactName = $(this).data('name').toLowerCase();
-        const contactAlias = $(this).data('alias').toLowerCase();
-        if (contactName.includes(searchText) || contactAlias.includes(searchText)) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
-    });
-    // Añadir seleccion
-    $(document).on('click', '.contact-item', function() {
-      $('.contact-item').removeClass('active');
-      $(this).addClass('active');
-      const name = $(this).data('name');
-      console.log('Contacto seleccionado:', name);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
