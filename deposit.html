@@ -37,54 +37,7 @@
     <a href="../menu.html" class="btn btn-secondary mt-2">Volver al Menú Principal</a>
   </div>
 
-  <script>
-    const depositForm = document.getElementById('depositForm');
-    const depositAmount = document.getElementById('depositAmount');
-    const successAlert = document.getElementById('successAlert');
-    const closeAlert = document.getElementById('closeAlert');    
-    // Inicializar saldo si no existe
-    if (!localStorage.getItem('balance')) {
-      localStorage.setItem('balance', '30000');
-    }
-    
-        // Manejar envío del formulario
-    depositForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const amountText = depositAmount.value.replace(/\./g, ''); // Eliminar puntos del formato
-      const amount = parseFloat(amountText);
-      if (amount && amount > 0) {
-        // Obtener saldo actual
-        const currentBalanceValue = parseFloat(localStorage.getItem('balance')) || 0;
-        // Sumar depósito
-        const newBalance = currentBalanceValue + amount;
-        // Guardar nuevo saldo
-        localStorage.setItem('balance', newBalance.toString());
-        // Mostrar alerta
-        successAlert.style.display = 'block';
-        successAlert.classList.add('fade', 'show');
-        // Limpiar formulario
-        depositAmount.value = '';
-        // Ocultar alerta después de 3 segundos
-        setTimeout(function() {
-          successAlert.classList.remove('show');
-          setTimeout(function() {
-            successAlert.style.display = 'none';
-            successAlert.classList.remove('fade');
-          }, 150);
-        }, 3000);
-      }
-    });
-    
-    // Manejar cierre manual de la alerta
-    closeAlert.addEventListener('click', function() {
-      successAlert.classList.remove('show');
-      setTimeout(function() {
-        successAlert.style.display = 'none';
-        successAlert.classList.remove('fade');
-      }, 150);
-    });
-    
-  </script>
+
     <script src="script.js"></script>
 </body>
 </html>
