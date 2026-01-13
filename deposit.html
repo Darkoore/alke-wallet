@@ -3,6 +3,7 @@
 <head>
   <title>Wallet - Depositar</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
   <style>
     #successAlert {
       display: none;
@@ -25,13 +26,11 @@
         <span>&times;</span>
       </button>
     </div>
+    <!-- Form deposito -->
     <form id="depositForm">
       <div class="form-group">
         <label for="depositAmount">Monto a depositar:</label>
-        <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" min="1" required>
-      </div>
-        <div class="form-group">
-        <h4 id="currentBalance" style="display: none;" >$0</h4>
+        <input type="number" class="form-control" id="depositAmount" placeholder="Ingrese el monto" required>
       </div>
       <button type="submit" class="btn btn-primary">Realizar depósito</button>
     </form>
@@ -42,25 +41,17 @@
     const depositForm = document.getElementById('depositForm');
     const depositAmount = document.getElementById('depositAmount');
     const successAlert = document.getElementById('successAlert');
-    const closeAlert = document.getElementById('closeAlert');
-    const currentBalance = document.getElementById('currentBalance');
-    
+    const closeAlert = document.getElementById('closeAlert');    
     // Inicializar saldo si no existe
     if (!localStorage.getItem('balance')) {
       localStorage.setItem('balance', '30000');
     }
     
-    // Mostrar saldo actual
-    function updateBalanceDisplay() {
-      const balance = parseFloat(localStorage.getItem('balance')) || 0;
-      currentBalance.textContent = '$' + balance.toLocaleString('es-CL');
-    }
-    
-    updateBalanceDisplay();
-    // Manejar envío del formulario
+        // Manejar envío del formulario
     depositForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const amount = parseFloat(depositAmount.value);
+      const amountText = depositAmount.value.replace(/\./g, ''); // Eliminar puntos del formato
+      const amount = parseFloat(amountText);
       if (amount && amount > 0) {
         // Obtener saldo actual
         const currentBalanceValue = parseFloat(localStorage.getItem('balance')) || 0;
@@ -68,8 +59,6 @@
         const newBalance = currentBalanceValue + amount;
         // Guardar nuevo saldo
         localStorage.setItem('balance', newBalance.toString());
-        // Actualizar visualización
-        updateBalanceDisplay();
         // Mostrar alerta
         successAlert.style.display = 'block';
         successAlert.classList.add('fade', 'show');
@@ -94,6 +83,8 @@
         successAlert.classList.remove('fade');
       }, 150);
     });
+    
   </script>
+    <script src="script.js"></script>
 </body>
 </html>
