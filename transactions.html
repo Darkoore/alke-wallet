@@ -6,12 +6,36 @@
   <title>Historial de Transacciones</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-
+    body {
+      padding: 20px;
+    }
   </style>
 </head>
-<body>
+<body class="bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="menu.html">Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="deposit.html">Deposito</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sendmoney.html">Transferencias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="transactions.html">Historial</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   <div class="container mt-5">
-    <h1 class="mb-4">Historial de Transacciones</h1>
+    <h1 class="mb-4 text-white">Historial de Transacciones</h1>
     <div id="transactionsList" class="list-group">
       <!-- Las transacciones se cargarán aquí -->
     </div>
@@ -38,25 +62,30 @@
       transactions.forEach((transaction) => {
         const transactionItem = `
           <div class="transaction-item">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <div class="transaction-type">${transaction.tipo}</div>
-                <div class="transaction-details">
-                  <strong>Destinatario:</strong> ${transaction.destinatario}<br>
-                  <strong>CBU:</strong> ${transaction.cbu}<br>
-                  <strong>Alias:</strong> ${transaction.alias}<br>
-                  <strong>Banco:</strong> ${transaction.banco}
+            <div class="card mb-3 bg-info">
+                <div class="card-body text-white">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="transaction-type">${transaction.tipo}</div>
+                            <div class="transaction-details">
+                            <strong>Destinatario:</strong> ${transaction.destinatario}<br>
+                            <strong>CBU:</strong> ${transaction.cbu}<br>
+                            <strong>Alias:</strong> ${transaction.alias}<br>
+                            <strong>Banco:</strong> ${transaction.banco}
+                            </div>
+                            <div class="transaction-date">${transaction.fechaFormateada}</div>
+                        </div>
+                    <div class="transaction-amount text-danger">
+                        -$${transaction.monto.toLocaleString('es-CL')}
+                    </div>
                 </div>
-                <div class="transaction-date">${transaction.fechaFormateada}</div>
-              </div>
-              <div class="transaction-amount text-danger">
-                -$${transaction.monto.toLocaleString('es-CL')}
               </div>
             </div>
           </div>
         `;
         $('#transactionsList').append(transactionItem);
       });
+      
     }
     // Cargar transacciones al iniciar la página
     $(document).ready(function() {
