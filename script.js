@@ -82,6 +82,30 @@ function loadContacts() {
     const index = $(this).data('index');
     deleteContact(index);
     });
+    //Llamada a funcion AutoComplete
+    initializeAutocomplete();
+}
+// Funcion para inicializar autocomplete
+function initializeAutocomplete() {
+    const contactsData = $('.contact-item').map(function() {
+        return {
+            label: $(this).data('name') + ' (' + $(this).data('alias') + ')',
+            value: $(this).data('name'),
+            name: $(this).data('name').toLowerCase(),
+            alias: $(this).data('alias').toLowerCase()
+        };
+    }).get();
+
+    // Destruir autocomplete anterior si existe
+    if ($('#searchContact').hasClass('ui-autocomplete-input')) {
+        $('#searchContact').autocomplete('destroy');
+    }
+
+    // Inicializar autocomplete
+    $('#searchContact').autocomplete({
+        source: contactsData,
+        minLength: 1
+    });
 }
 // Función validacion CBU
 function cbuExists(cbu) {
@@ -189,44 +213,4 @@ $('#btnSendMoney').click(function() {
     $('#depositAmount').val('');
     $('.contact-item').removeClass('active');
     }
-});
-
-// ---------------------------------------------------------------------Scripts de Deposit.HTML----------------------------------------------------------------------------
-const depositForm = document.getElementById('depositForm');
-const depositAmount = document.getElementById('depositAmount');
-const successAlert = document.getElementById('successAlert');
-const closeAlert = document.getElementById('closeAlert');    
-    // Manejar envío del formulario
-depositForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (amount && amount > 0) {
-    // Obtener saldo actual
-    const currentBalanceValue = parseFloat(localStorage.getItem('balance')) || 0;
-    // Sumar depósito
-    const newBalance = currentBalanceValue + amount;
-    // Guardar nuevo saldo
-    localStorage.setItem('balance', newBalance.toString());
-    // Mostrar alerta
-    successAlert.style.display = 'block';
-    successAlert.classList.add('fade', 'show');
-    // Limpiar formulario
-    depositAmount.value = '';
-    // Ocultar alerta después de 3 segundos
-    setTimeout(function() {
-        successAlert.classList.remove('show');
-        setTimeout(function() {
-        successAlert.style.display = 'none';
-        successAlert.classList.remove('fade');
-        }, 150);
-    }, 3000);
-    }
-});
-
-// Manejar cierre manual de la alerta
-closeAlert.addEventListener('click', function() {
-    successAlert.classList.remove('show');
-    setTimeout(function() {
-    successAlert.style.display = 'none';
-    successAlert.classList.remove('fade');
-    }, 150);
 });
